@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DemoTY.Models.Cart>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart : </h2>
+
+<p>
+    @Html.ActionLink("Add Menu Item", "Index")
+</p>
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FreeDelivery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuItem.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FreeDelivery)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuItem.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Remove", "Remove", new { id = item.CartId }, 
+                   new { onclick = "return confirm('Are you sure you want to delete?"+item.CartId+"')" }) |
+                    @*@Html.ActionLink("Details", "Details", new { id = item.CartId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CartId })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <p>No items in cart @Html.ActionLink("View menu items", "Index", "MenuItems")</p>
+}
